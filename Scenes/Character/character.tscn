@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://o86pw35ntehg"]
+[gd_scene load_steps=37 format=3 uid="uid://o86pw35ntehg"]
 
 [ext_resource type="Script" path="res://Scenes/Character/character.gd" id="1_wtjlj"]
 [ext_resource type="Texture2D" uid="uid://f2xrubpf625s" path="res://Scenes/Character/Sprites/Character_SpriteSheet.png" id="2_l541q"]
@@ -50,6 +50,22 @@ region = Rect2(384, 64, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_q0mrn"]
 atlas = ExtResource("2_l541q")
 region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyebn"]
+atlas = ExtResource("2_l541q")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0vjo"]
+atlas = ExtResource("2_l541q")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltg4c"]
+atlas = ExtResource("2_l541q")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ro31n"]
+atlas = ExtResource("2_l541q")
+region = Rect2(256, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_66c5f"]
 atlas = ExtResource("2_l541q")
@@ -175,6 +191,38 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_iyebn")
+}],
+"loop": true,
+"name": &"idle_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0vjo")
+}],
+"loop": true,
+"name": &"idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ltg4c")
+}],
+"loop": true,
+"name": &"idle_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ro31n")
+}],
+"loop": true,
+"name": &"idle_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_66c5f")
 }, {
 "duration": 1.0,
@@ -252,11 +300,14 @@ metadata/_edit_lock_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_tscgs")
-animation = &"move_down"
+animation = &"idle_down"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8uaha")
 metadata/_edit_lock_ = true
 
+[connection signal="facing_direction_changed" from="." to="." method="_on_facing_direction_changed"]
+[connection signal="moving_direction_changed" from="." to="." method="_on_moving_direction_changed"]
+[connection signal="state_changed" from="." to="." method="_on_state_changed"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
