@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://dbt61jtuuortk"]
+
+[ext_resource type="Script" path="res://Scenes/InteractiveObjects/jar.gd" id="1_0rhaw"]
+[ext_resource type="Texture2D" uid="uid://db7o6qqh6rv6e" path="res://Scenes/InteractiveObjects/Sprites/Jar_SpriteSheet.png" id="1_kylwp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60pfj"]
+atlas = ExtResource("1_kylwp")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_se3ve"]
+atlas = ExtResource("1_kylwp")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srcmu"]
+atlas = ExtResource("1_kylwp")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5upj"]
+atlas = ExtResource("1_kylwp")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjy7u"]
+atlas = ExtResource("1_kylwp")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfvtj"]
+atlas = ExtResource("1_kylwp")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o1gaw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60pfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_se3ve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srcmu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5upj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjy7u")
+}],
+"loop": false,
+"name": &"break",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfvtj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_03fw6"]
+
+[node name="Jar" type="StaticBody2D"]
+script = ExtResource("1_0rhaw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_o1gaw")
+animation = &"idle"
+offset = Vector2(0.5, -3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_03fw6")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

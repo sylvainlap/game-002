@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cvplv0i22rkq7"]
+[gd_scene load_steps=9 format=3 uid="uid://cvplv0i22rkq7"]
 
 [ext_resource type="PackedScene" uid="uid://o86pw35ntehg" path="res://Scenes/Character/character.tscn" id="1_f37is"]
 [ext_resource type="Texture2D" uid="uid://bkippavtdp4nf" path="res://Scenes/Levels/Tilesets/Tileset.png" id="2_tltmk"]
+[ext_resource type="PackedScene" uid="uid://c858brhrcg8ak" path="res://Scenes/InteractiveObjects/chest.tscn" id="3_ie3xb"]
+[ext_resource type="PackedScene" uid="uid://dbt61jtuuortk" path="res://Scenes/InteractiveObjects/jar.tscn" id="3_kihwd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2tawl"]
 texture = ExtResource("2_tltmk")
@@ -103,7 +105,6 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_d74wi")
 
 [node name="Level" type="Node2D"]
-metadata/_edit_lock_ = true
 
 [node name="Walls&Ground" type="TileMap" parent="."]
 texture_filter = 1
@@ -115,7 +116,19 @@ layer_0/tile_data = PackedInt32Array(0, 327681, 0, 35, 393217, 0, 1245184, 32768
 texture_filter = 1
 tile_set = SubResource("TileSet_vsd1c")
 format = 2
-layer_0/tile_data = PackedInt32Array(17, 131072, 0, 983043, 0, 1, 1048580, 0, 1, 1048579, 0, 1, 851975, 0, 0, 1048604, 65536, 0)
+layer_0/tile_data = PackedInt32Array(17, 131072, 0, 983043, 0, 1, 1048580, 0, 1, 1048579, 0, 1)
+
+[node name="Jar" parent="." instance=ExtResource("3_kihwd")]
+position = Vector2(616, 444)
+
+[node name="Jar2" parent="." instance=ExtResource("3_kihwd")]
+position = Vector2(412, 415)
+
+[node name="Jar3" parent="." instance=ExtResource("3_kihwd")]
+position = Vector2(164, 191)
+
+[node name="Chest" parent="." instance=ExtResource("3_ie3xb")]
+position = Vector2(655, 291)
 
 [node name="Character" parent="." instance=ExtResource("1_f37is")]
 position = Vector2(364, 264)

@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var animated_sprite: Node = get_node("AnimatedSprite2D")
+@onready var attack_hit_box: Node = get_node("AttackHitBox")
 
 signal state_changed
 signal moving_direction_changed
@@ -97,9 +98,39 @@ func _update_animation() -> void:
 		
 	animated_sprite.play(state_name + "_" + direction_name)
 
+func _update_attack_hit_box_direction() -> void:
+	var angle = get_facing_direction().angle()
+	
+	attack_hit_box.set_rotation_degrees(rad_to_deg(angle) - 90)
+	
+func _attack_effect() -> void:
+	var bodies_array = attack_hit_box.get_overlapping_bodies()
+	print(bodies_array)
+	
+	for body in bodies_array:
+		if body.has_method("destroy"):
+			body.destroy()
+			
+func _interaction_attempt() -> bool:
+	var bodies_array = attack_hit_box.get_overlapping_bodies()
+	print(bodies_array)
+	
+	var attempt_success = false
+	
+	for body in bodies_array:
+		if body.has_method("interact"):
+			body.interact()
+			attempt_success = true
+	
+	return attempt_success
+
 #### SIGNAL RESPONSES ####
 
 func _on_state_changed() -> void:
+	if get_state() == STATE.ATTACK:
+		if _interaction_attempt():
+			set_state(STATE.IDLE)
+		
 	_update_animation()
 
 func _on_moving_direction_changed() -> void:
@@ -121,7 +152,14 @@ func _on_moving_direction_changed() -> void:
 
 func _on_facing_direction_changed() -> void:
 	_update_animation()
+	_update_attack_hit_box_direction()
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if "attack".is_subsequence_of(animated_sprite.get_animation()):
 		set_state(STATE.IDLE)
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if "attack".is_subsequence_of(animated_sprite.get_animation()):
+		if animated_sprite.get_frame() == 1:
+			print("attack !!!")
+			_attack_effect()
