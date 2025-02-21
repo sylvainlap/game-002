@@ -30,7 +30,6 @@ var direction_dict: Dictionary = {
 
 func set_state(value: int) -> void:
 	if value != state:
-		print(value)
 		state = value
 		state_changed.emit()
 

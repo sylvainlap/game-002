@@ -35,6 +35,8 @@ func _collect() -> void:
 	shadow_sprite.set_visible(false)
 	state = STATE.COLLECTED
 	
+	EVENTS.emit_signal("coin_collected")
+	
 	await audio_stream.finished
 	queue_free()
 

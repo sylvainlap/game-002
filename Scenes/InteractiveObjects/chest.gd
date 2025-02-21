@@ -17,7 +17,10 @@ func interact() -> void:
 	state = STATE.OPENING
 	animated_sprite.play("open")
 
+func _spawn_content() -> void:
+	EVENTS.emit_signal("spawn_coin", position)
+
 func _on_animated_sprite_2d_animation_finished() -> void:
-	print(animated_sprite.get_animation())
 	if animated_sprite.get_animation() == "open":
 		state = STATE.OPENED
+		_spawn_content()

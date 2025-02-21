@@ -1,10 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://cvplv0i22rkq7"]
+[gd_scene load_steps=16 format=3 uid="uid://cvplv0i22rkq7"]
 
 [ext_resource type="PackedScene" uid="uid://o86pw35ntehg" path="res://Scenes/Character/character.tscn" id="1_f37is"]
 [ext_resource type="Texture2D" uid="uid://bkippavtdp4nf" path="res://Scenes/Levels/Tilesets/Tileset.png" id="2_tltmk"]
 [ext_resource type="PackedScene" uid="uid://c858brhrcg8ak" path="res://Scenes/InteractiveObjects/chest.tscn" id="3_ie3xb"]
 [ext_resource type="PackedScene" uid="uid://dbt61jtuuortk" path="res://Scenes/InteractiveObjects/jar.tscn" id="3_kihwd"]
 [ext_resource type="PackedScene" uid="uid://ca4tlylv3ytgd" path="res://Scenes/InteractiveObjects/coin.tscn" id="4_eub2l"]
+[ext_resource type="Texture2D" uid="uid://bl2umm1s3bhy4" path="res://Scenes/UI/HUD/HUD.png" id="6_vcrfk"]
+[ext_resource type="Script" path="res://Scenes/UI/HUD/hud.gd" id="7_26xv8"]
+[ext_resource type="Texture2D" uid="uid://dxlgt5g6fy0ox" path="res://Scenes/UI/HUD/Portrait.png" id="7_t138d"]
+[ext_resource type="FontFile" uid="uid://tt6wvkapv35l" path="res://Scenes/UI/Font/BabaMediumPixels.ttf" id="8_o85kg"]
+[ext_resource type="Texture2D" uid="uid://df6uaggm7od1t" path="res://Scenes/UI/HUD/HUD_Mask.png" id="8_opxke"]
+[ext_resource type="Script" path="res://Scenes/Levels/coin_factory.gd" id="10_cxcgg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2tawl"]
 texture = ExtResource("2_tltmk")
@@ -135,5 +141,61 @@ position = Vector2(655, 291)
 [node name="Coin" parent="." instance=ExtResource("4_eub2l")]
 position = Vector2(99, 128)
 
+[node name="Coin2" parent="." instance=ExtResource("4_eub2l")]
+position = Vector2(754, 443)
+
+[node name="Coin3" parent="." instance=ExtResource("4_eub2l")]
+position = Vector2(1000, 146)
+
 [node name="Character" parent="." instance=ExtResource("1_f37is")]
 position = Vector2(364, 264)
+
+[node name="UI_Container" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="UI_Container"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+metadata/_edit_lock_ = true
+
+[node name="HUD" type="TextureRect" parent="UI_Container/UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("6_vcrfk")
+script = ExtResource("7_26xv8")
+
+[node name="Mask" type="TextureRect" parent="UI_Container/UI/HUD"]
+clip_children = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("8_opxke")
+
+[node name="Portrait" type="TextureRect" parent="UI_Container/UI/HUD/Mask"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 6.0
+offset_right = 52.0
+offset_bottom = 54.0
+texture = ExtResource("7_t138d")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="UI_Container/UI/HUD"]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 33.0
+offset_right = 92.0
+offset_bottom = 49.0
+theme_override_colors/font_outline_color = Color(0.286522, 0, 0.141875, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("8_o85kg")
+text = "0"
+
+[node name="CoinFactory" type="Node2D" parent="."]
+script = ExtResource("10_cxcgg")
