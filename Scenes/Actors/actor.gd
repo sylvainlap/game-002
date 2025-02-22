@@ -58,6 +58,14 @@ func get_facing_direction() -> Vector2:
 	return facing_direction
 
 
+func _ready() -> void:
+	state_changed.connect(_on_state_changed)
+	moving_direction_changed.connect(_on_moving_direction_changed)
+	facing_direction_changed.connect(_on_facing_direction_changed)
+	animated_sprite.animation_finished.connect(_on_animated_sprite_2d_animation_finished)
+	animated_sprite.frame_changed.connect(_on_animated_sprite_2d_frame_changed)
+
+
 func _physics_process(_delta: float) -> void:
 	velocity = moving_direction * SPEED
 	move_and_slide()
