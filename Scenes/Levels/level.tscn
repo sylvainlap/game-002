@@ -1,10 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://cvplv0i22rkq7"]
+[gd_scene load_steps=15 format=3 uid="uid://cvplv0i22rkq7"]
 
 [ext_resource type="PackedScene" uid="uid://o86pw35ntehg" path="res://Scenes/Character/character.tscn" id="1_f37is"]
 [ext_resource type="Texture2D" uid="uid://bkippavtdp4nf" path="res://Scenes/Levels/Tilesets/Tileset.png" id="2_tltmk"]
 [ext_resource type="PackedScene" uid="uid://c858brhrcg8ak" path="res://Scenes/InteractiveObjects/chest.tscn" id="3_ie3xb"]
 [ext_resource type="PackedScene" uid="uid://dbt61jtuuortk" path="res://Scenes/InteractiveObjects/jar.tscn" id="3_kihwd"]
-[ext_resource type="PackedScene" uid="uid://ca4tlylv3ytgd" path="res://Scenes/InteractiveObjects/coin.tscn" id="4_eub2l"]
 [ext_resource type="Texture2D" uid="uid://bl2umm1s3bhy4" path="res://Scenes/UI/HUD/HUD.png" id="6_vcrfk"]
 [ext_resource type="Script" path="res://Scenes/UI/HUD/hud.gd" id="7_26xv8"]
 [ext_resource type="Texture2D" uid="uid://dxlgt5g6fy0ox" path="res://Scenes/UI/HUD/Portrait.png" id="7_t138d"]
@@ -136,16 +135,13 @@ position = Vector2(412, 415)
 position = Vector2(164, 191)
 
 [node name="Chest" parent="." instance=ExtResource("3_ie3xb")]
-position = Vector2(655, 291)
+position = Vector2(794, 184)
 
-[node name="Coin" parent="." instance=ExtResource("4_eub2l")]
-position = Vector2(99, 128)
+[node name="Chest2" parent="." instance=ExtResource("3_ie3xb")]
+position = Vector2(456, 141)
 
-[node name="Coin2" parent="." instance=ExtResource("4_eub2l")]
-position = Vector2(754, 443)
-
-[node name="Coin3" parent="." instance=ExtResource("4_eub2l")]
-position = Vector2(1000, 146)
+[node name="Chest3" parent="." instance=ExtResource("3_ie3xb")]
+position = Vector2(937, 468)
 
 [node name="Character" parent="." instance=ExtResource("1_f37is")]
 position = Vector2(364, 264)

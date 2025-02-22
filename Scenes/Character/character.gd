@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Character
 
 @onready var animated_sprite: Node = get_node("AnimatedSprite2D")
 @onready var attack_hit_box: Node = get_node("AttackHitBox")
