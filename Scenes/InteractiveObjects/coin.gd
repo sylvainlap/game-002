@@ -30,7 +30,7 @@ signal state_changed
 func set_state(new_state: int) -> void:
 	if new_state != state:
 		state = new_state
-		emit_signal("state_changed")
+		state_changed.emit()
 
 
 func get_state() -> int:

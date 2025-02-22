@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://d3ncuh1jq0sqw"]
+
+[node name="Actor" type="CharacterBody2D"]
+metadata/_edit_lock_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+animation = &""
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="AttackHitBox" type="Area2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitBox"]
+position = Vector2(0, 20)
+metadata/_edit_lock_ = true
