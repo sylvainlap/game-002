@@ -1,19 +1,22 @@
 extends State
 class_name CoinFollowState
 
+const SPEED: float = 400.0
 
-func _follow(delta: float) -> void:
-	if owner.target == null:
-		return
-	
-	var target_pos = owner.target.get_position()
-	var spd = owner.speed * delta
-	if position.distance_to(target_pos) < spd:
-		position = target_pos
-		owner._collect()
-	else:
-		position = position.move_toward(target_pos, spd)
+var target: Node2D = null
 
 
 func update(delta: float) -> void:
-	_follow(delta)
+	if target == null:
+		return
+	
+	var target_pos = target.get_position()
+	var dist = owner.position.distance_to(target_pos)
+	var spd = SPEED * delta
+	
+	
+	if dist < spd:
+		owner.position = target_pos
+		owner.collect()
+	else:
+		owner.position = owner.position.move_toward(target_pos, spd)

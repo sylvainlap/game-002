@@ -1,4 +1,5 @@
 extends StaticBody2D
+class_name Chest
 
 @onready var animated_sprite = get_node("AnimatedSprite2D")
 @onready var state_machine = get_node("StateMachine")

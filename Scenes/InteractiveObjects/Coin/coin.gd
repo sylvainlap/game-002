@@ -1,4 +1,5 @@
 extends Node2D
+class_name Coin
 
 @onready var area = get_node("Area2D")
 @onready var coin_sprite = get_node("CoinSprite")
@@ -6,26 +7,15 @@ extends Node2D
 @onready var audio_stream = get_node("AudioStreamPlayer2D")
 @onready var animation_player = get_node("AnimationPlayer")
 @onready var state_machine = get_node("StateMachine")
-
-const GRAVITY: float = 40.0
-
-var target: Node2D = null
-var speed: float = 400.0
-var spawn_dir: Vector2 = Vector2.ZERO
+@onready var follow_state = get_node("StateMachine/Follow")
 
 
 func _ready() -> void:
 	animation_player.play("wave")
 	state_machine.state_changed.connect(_on_state_changed)
-	_init_spawn_values()
 
 
-func _init_spawn_values() -> void:
-	var rdm_angle = randf_range(0.0, 360.0)
-	spawn_dir = Vector2(sin(rdm_angle), cos(rdm_angle))
-
-
-func _collect() -> void:
+func collect() -> void:
 	audio_stream.play()
 	coin_sprite.set_visible(false)
 	shadow_sprite.set_visible(false)
@@ -39,7 +29,7 @@ func _collect() -> void:
 
 func _follow_target(body: Node2D) -> void:
 	state_machine.set_state("Follow")
-	target = body
+	follow_state.target = body
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
