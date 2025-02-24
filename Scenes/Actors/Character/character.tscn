@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://o86pw35ntehg"]
+[gd_scene load_steps=9 format=3 uid="uid://o86pw35ntehg"]
 
 [ext_resource type="PackedScene" uid="uid://d3ncuh1jq0sqw" path="res://Scenes/Actors/actor.tscn" id="1_ixfix"]
 [ext_resource type="Script" path="res://Scenes/Actors/Character/character.gd" id="1_wtjlj"]
 [ext_resource type="SpriteFrames" uid="uid://bgxuab8h77fyl" path="res://Scenes/Actors/Character/character_sprite_frame.tres" id="2_siyj3"]
 [ext_resource type="Shape2D" uid="uid://byq2fmlc165jm" path="res://Scenes/Actors/Character/character_hit_box.tres" id="3_71yk0"]
 [ext_resource type="Shape2D" uid="uid://nfnfl8elw6st" path="res://Scenes/Actors/Character/character_attack_hit_box.tres" id="4_erdnv"]
+[ext_resource type="Script" path="res://Scenes/Actors/Character/States/move.gd" id="6_4gx33"]
+[ext_resource type="Script" path="res://Scenes/Actors/Character/States/idle.gd" id="6_p5kfc"]
+[ext_resource type="Script" path="res://Scenes/Actors/Character/States/attack.gd" id="8_7bog1"]
 
 [node name="Character" instance=ExtResource("1_ixfix")]
 script = ExtResource("1_wtjlj")
@@ -24,3 +27,12 @@ position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 editor_draw_drag_margin = true
+
+[node name="Idle" parent="StateMachine" index="0"]
+script = ExtResource("6_p5kfc")
+
+[node name="Move" parent="StateMachine" index="1"]
+script = ExtResource("6_4gx33")
+
+[node name="Attack" parent="StateMachine" index="2"]
+script = ExtResource("8_7bog1")

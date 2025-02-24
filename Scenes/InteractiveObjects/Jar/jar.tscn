@@ -1,7 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dbt61jtuuortk"]
+[gd_scene load_steps=13 format=3 uid="uid://dbt61jtuuortk"]
 
-[ext_resource type="Script" path="res://Scenes/InteractiveObjects/jar.gd" id="1_0rhaw"]
-[ext_resource type="Texture2D" uid="uid://db7o6qqh6rv6e" path="res://Scenes/InteractiveObjects/Sprites/Jar_SpriteSheet.png" id="1_kylwp"]
+[ext_resource type="Script" path="res://Scenes/InteractiveObjects/Jar/jar.gd" id="1_0rhaw"]
+[ext_resource type="Texture2D" uid="uid://db7o6qqh6rv6e" path="res://Scenes/InteractiveObjects/Jar/Sprites/Jar_SpriteSheet.png" id="1_kylwp"]
+[ext_resource type="Script" path="res://StateMachine/state_machine.gd" id="3_kp052"]
+[ext_resource type="Script" path="res://StateMachine/state.gd" id="4_i732o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60pfj"]
 atlas = ExtResource("1_kylwp")
@@ -71,5 +73,17 @@ offset = Vector2(0.5, -3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_03fw6")
+
+[node name="StateMachine" type="Node2D" parent="."]
+script = ExtResource("3_kp052")
+
+[node name="Idle" type="Node2D" parent="StateMachine"]
+script = ExtResource("4_i732o")
+
+[node name="Breaking" type="Node2D" parent="StateMachine"]
+script = ExtResource("4_i732o")
+
+[node name="Broken" type="Node2D" parent="StateMachine"]
+script = ExtResource("4_i732o")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

@@ -11,13 +11,13 @@ func _input(_event: InputEvent) -> void:
 	set_moving_direction(direction.normalized())
 	
 	if Input.is_action_just_pressed("ui_accept"):
-		set_state(STATE.ATTACK)
+		state_machine.set_state("Attack")
 
-	if get_state() != STATE.ATTACK:
+	if state_machine.get_state_name() != "Attack":
 		if get_moving_direction() == Vector2.ZERO:
-			set_state(STATE.IDLE)
+			state_machine.set_state("Idle")
 		else:
-			set_state(STATE.MOVE)
+			state_machine.set_state("Move")
 
 
 func _interaction_attempt() -> bool:
@@ -33,9 +33,9 @@ func _interaction_attempt() -> bool:
 	return attempt_success
 
 
-func _on_state_changed() -> void:
-	if get_state() == STATE.ATTACK:
+func _on_state_changed(new_state: Node2D) -> void:
+	if new_state.name == "Attack":
 		if _interaction_attempt():
-			set_state(STATE.IDLE)
+			state_machine.set_state("Idle")
 
-	super()
+	super(new_state)

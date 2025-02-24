@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GAME="*res://Autoload/game.gd"
-EVENTS="*res://Autoload/events.gd"
+GAME="*res://Autoloads/game.gd"
+EVENTS="*res://Autoloads/events.gd"
 
 [display]
 

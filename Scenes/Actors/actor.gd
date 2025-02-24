@@ -1,18 +1,12 @@
 extends CharacterBody2D
 class_name Actor
 
-@onready var animated_sprite: Node = get_node("AnimatedSprite2D")
-@onready var attack_hit_box: Node = get_node("AttackHitBox")
+@onready var animated_sprite := get_node("AnimatedSprite2D")
+@onready var attack_hit_box := get_node("AttackHitBox")
+@onready var state_machine := get_node("StateMachine")
 
-signal state_changed
 signal moving_direction_changed
 signal facing_direction_changed
-
-enum STATE {
-	IDLE,
-	MOVE,
-	ATTACK,
-}
 
 const SPEED := 300.0
 
@@ -25,17 +19,6 @@ var direction_dict := {
 	"up": Vector2.UP,
 	"down": Vector2.DOWN,
 }
-
-var state := STATE.IDLE: set = set_state, get = get_state
-
-
-func set_state(new_state: STATE) -> void:
-	if new_state != state:
-		state = new_state
-		state_changed.emit()
-
-func get_state() -> STATE:
-	return state
 
 
 func set_moving_direction(new_moving_direction: Vector2) -> void:
@@ -59,16 +42,11 @@ func get_facing_direction() -> Vector2:
 
 
 func _ready() -> void:
-	state_changed.connect(_on_state_changed)
+	state_machine.state_changed.connect(_on_state_changed)
 	moving_direction_changed.connect(_on_moving_direction_changed)
 	facing_direction_changed.connect(_on_facing_direction_changed)
 	animated_sprite.animation_finished.connect(_on_animated_sprite_2d_animation_finished)
 	animated_sprite.frame_changed.connect(_on_animated_sprite_2d_frame_changed)
-
-
-func _physics_process(_delta: float) -> void:
-	velocity = moving_direction * SPEED
-	move_and_slide()
 
 
 func find_direction_name(dir: Vector2) -> String:
@@ -85,17 +63,9 @@ func find_direction_name(dir: Vector2) -> String:
 
 func _update_animation() -> void:
 	var direction_name := find_direction_name(get_facing_direction())
-	var state_name := ""
-	
-	match(state):
-		STATE.IDLE:
-			state_name = "idle"
-		STATE.MOVE:
-			state_name = "move"
-		STATE.ATTACK:
-			state_name = "attack"
-		
-	animated_sprite.play(state_name + "_" + direction_name)
+	var state_name = state_machine.get_state_name()
+
+	animated_sprite.play(state_name.to_lower() + "_" + direction_name)
 
 
 func _update_attack_hit_box_direction() -> void:
@@ -112,7 +82,7 @@ func _attack_effect() -> void:
 			body.destroy()
 
 
-func _on_state_changed() -> void:
+func _on_state_changed(new_state: Node2D) -> void:
 	_update_animation()
 
 
@@ -141,7 +111,7 @@ func _on_moving_direction_changed() -> void:
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if "attack".is_subsequence_of(animated_sprite.get_animation()):
-		set_state(STATE.IDLE)
+		state_machine.set_state("Idle")
 
 
 func _on_animated_sprite_2d_frame_changed() -> void:

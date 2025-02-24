@@ -1,9 +1,13 @@
-[gd_scene load_steps=29 format=3 uid="uid://ca4tlylv3ytgd"]
+[gd_scene load_steps=33 format=3 uid="uid://ca4tlylv3ytgd"]
 
-[ext_resource type="Texture2D" uid="uid://demh86hifqtl8" path="res://Scenes/InteractiveObjects/Sprites/PetitePiece_SpriteSheet.png" id="1_lnoao"]
-[ext_resource type="Script" path="res://Scenes/InteractiveObjects/coin.gd" id="1_wk0j4"]
-[ext_resource type="Texture2D" uid="uid://dmx8ud7ml2y8y" path="res://Scenes/InteractiveObjects/Sprites/PetitePieceShadow_SpriteSheet.png" id="2_qppfk"]
-[ext_resource type="AudioStream" uid="uid://cj88uiu5caqtl" path="res://Scenes/InteractiveObjects/Sound/Validation.ogg" id="4_gpkx7"]
+[ext_resource type="Texture2D" uid="uid://demh86hifqtl8" path="res://Scenes/InteractiveObjects/Coin/Sprites/PetitePiece_SpriteSheet.png" id="1_lnoao"]
+[ext_resource type="Script" path="res://Scenes/InteractiveObjects/Coin/coin.gd" id="1_wk0j4"]
+[ext_resource type="Texture2D" uid="uid://dmx8ud7ml2y8y" path="res://Scenes/InteractiveObjects/Coin/Sprites/PetitePieceShadow_SpriteSheet.png" id="2_qppfk"]
+[ext_resource type="AudioStream" uid="uid://cj88uiu5caqtl" path="res://Scenes/InteractiveObjects/Coin/Sound/Validation.ogg" id="4_gpkx7"]
+[ext_resource type="Script" path="res://StateMachine/state_machine.gd" id="5_q4fsm"]
+[ext_resource type="Script" path="res://StateMachine/state.gd" id="6_fjkjr"]
+[ext_resource type="Script" path="res://Scenes/InteractiveObjects/Coin/States/spawn.gd" id="6_mmlls"]
+[ext_resource type="Script" path="res://Scenes/InteractiveObjects/Coin/States/follow.gd" id="7_jjp8s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3lqpe"]
 atlas = ExtResource("2_qppfk")
@@ -259,7 +263,21 @@ wait_time = 0.4
 one_shot = true
 autostart = true
 
-[connection signal="state_changed" from="." to="." method="_on_state_changed"]
+[node name="StateMachine" type="Node2D" parent="."]
+script = ExtResource("5_q4fsm")
+
+[node name="Spawn" type="Node2D" parent="StateMachine"]
+script = ExtResource("6_mmlls")
+
+[node name="Idle" type="Node2D" parent="StateMachine"]
+script = ExtResource("6_fjkjr")
+
+[node name="Follow" type="Node2D" parent="StateMachine"]
+script = ExtResource("7_jjp8s")
+
+[node name="Collected" type="Node2D" parent="StateMachine"]
+script = ExtResource("6_fjkjr")
+
 [connection signal="animation_finished" from="CoinSprite" to="." method="_on_coin_sprite_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
