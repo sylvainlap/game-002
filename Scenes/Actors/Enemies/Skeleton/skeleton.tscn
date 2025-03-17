@@ -1,7 +1,13 @@
-[gd_scene load_steps=38 format=3 uid="uid://c6wmus4cqvgq6"]
+[gd_scene load_steps=46 format=3 uid="uid://c6wmus4cqvgq6"]
 
 [ext_resource type="PackedScene" uid="uid://bya3mc8wmmafc" path="res://Scenes/Actors/Enemies/enemy.tscn" id="1_ml3yf"]
 [ext_resource type="Texture2D" uid="uid://ciq1g308rup6j" path="res://Scenes/Actors/Enemies/Skeleton/Sprites/Squelette_SpriteSheet.png" id="2_aibn1"]
+[ext_resource type="Script" path="res://StateMachine/state_machine.gd" id="3_e24xs"]
+[ext_resource type="Script" path="res://Scenes/Actors/Enemies/Skeleton/States/move.gd" id="3_nu6cx"]
+[ext_resource type="Script" path="res://Scenes/Actors/Enemies/Skeleton/States/chase.gd" id="5_rg132"]
+[ext_resource type="Script" path="res://StateMachine/state_label.gd" id="5_ttfk5"]
+[ext_resource type="Script" path="res://Scenes/Actors/Enemies/Skeleton/States/wander.gd" id="6_yy50v"]
+[ext_resource type="Script" path="res://Scenes/Actors/Enemies/Skeleton/States/attack.gd" id="8_nb2ht"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w0848"]
 atlas = ExtResource("2_aibn1")
@@ -296,7 +302,14 @@ radius = 15.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qxsj0"]
 size = Vector2(45, 15)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_4uts0"]
+radius = 144.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lrjjw"]
+radius = 27.074
+
 [node name="Skeleton" instance=ExtResource("1_ml3yf")]
+SPEED = 170.0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_j8fa6")
@@ -306,5 +319,45 @@ animation = &"idle_down"
 shape = SubResource("CircleShape2D_4en1j")
 
 [node name="CollisionShape2D" parent="AttackHitBox" index="0"]
-position = Vector2(1.5, 21)
+position = Vector2(0, 21)
 shape = SubResource("RectangleShape2D_qxsj0")
+
+[node name="Move" parent="StateMachine" index="1"]
+script = ExtResource("3_nu6cx")
+
+[node name="StateLabel" type="Label" parent="StateMachine" index="3"]
+offset_left = -29.0
+offset_top = -52.0
+offset_right = 30.0
+offset_bottom = -29.0
+script = ExtResource("5_ttfk5")
+
+[node name="BehaviourTree" type="Node2D" parent="." index="4"]
+script = ExtResource("3_e24xs")
+
+[node name="Wander" type="Node2D" parent="BehaviourTree" index="0"]
+script = ExtResource("6_yy50v")
+
+[node name="Chase" type="Node2D" parent="BehaviourTree" index="1"]
+script = ExtResource("5_rg132")
+
+[node name="Attack" type="Node2D" parent="BehaviourTree" index="2"]
+script = ExtResource("8_nb2ht")
+
+[node name="Cooldown" type="Timer" parent="BehaviourTree/Attack" index="0"]
+one_shot = true
+
+[node name="StateLabel" type="Label" parent="BehaviourTree" index="3"]
+offset_left = -30.0
+offset_top = -75.0
+offset_right = 30.0
+offset_bottom = -50.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("5_ttfk5")
+
+[node name="CollisionShape2D" parent="ChaseArea" index="0"]
+shape = SubResource("CircleShape2D_4uts0")
+
+[node name="CollisionShape2D" parent="AttackArea" index="0"]
+shape = SubResource("CircleShape2D_lrjjw")

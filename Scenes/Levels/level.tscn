@@ -10,7 +10,7 @@
 [ext_resource type="FontFile" uid="uid://tt6wvkapv35l" path="res://Scenes/UI/Font/BabaMediumPixels.ttf" id="8_o85kg"]
 [ext_resource type="Texture2D" uid="uid://df6uaggm7od1t" path="res://Scenes/UI/HUD/HUD_Mask.png" id="8_opxke"]
 [ext_resource type="Script" path="res://Scenes/Levels/coin_factory.gd" id="10_cxcgg"]
-[ext_resource type="PackedScene" uid="uid://c6wmus4cqvgq6" path="res://Scenes/Actors/Enemies/Skeleton/skeleton.tscn" id="11_fd2qf"]
+[ext_resource type="PackedScene" uid="uid://c6wmus4cqvgq6" path="res://Scenes/Actors/Enemies/Skeleton/skeleton.tscn" id="11_2atqc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2tawl"]
 texture = ExtResource("2_tltmk")
@@ -149,9 +149,6 @@ position = Vector2(937, 468)
 [node name="Character" parent="." instance=ExtResource("1_f37is")]
 position = Vector2(283, 243)
 
-[node name="Skeleton" parent="." instance=ExtResource("11_fd2qf")]
-position = Vector2(469, 292)
-
 [node name="UI_Container" type="CanvasLayer" parent="."]
 
 [node name="UI" type="Control" parent="UI_Container"]
@@ -201,3 +198,7 @@ text = "0"
 
 [node name="CoinFactory" type="Node2D" parent="."]
 script = ExtResource("10_cxcgg")
+
+[node name="Skeleton" parent="." instance=ExtResource("11_2atqc")]
+position = Vector2(501, 319)
+metadata/_edit_group_ = true

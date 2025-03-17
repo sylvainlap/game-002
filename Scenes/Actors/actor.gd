@@ -8,7 +8,7 @@ class_name Actor
 signal moving_direction_changed
 signal facing_direction_changed
 
-const SPEED := 300.0
+@export var SPEED := 300.0
 
 var moving_direction := Vector2.ZERO: set = set_moving_direction, get = get_moving_direction
 var facing_direction := Vector2.DOWN: set = set_facing_direction, get = get_facing_direction
