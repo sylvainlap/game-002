@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://c6wmus4cqvgq6"]
+[gd_scene load_steps=48 format=3 uid="uid://c6wmus4cqvgq6"]
 
 [ext_resource type="PackedScene" uid="uid://bya3mc8wmmafc" path="res://Scenes/Actors/Enemies/enemy.tscn" id="1_ml3yf"]
 [ext_resource type="Texture2D" uid="uid://ciq1g308rup6j" path="res://Scenes/Actors/Enemies/Skeleton/Sprites/Squelette_SpriteSheet.png" id="2_aibn1"]
@@ -7,7 +7,9 @@
 [ext_resource type="Script" path="res://Scenes/Actors/Enemies/Skeleton/States/chase.gd" id="5_rg132"]
 [ext_resource type="Script" path="res://StateMachine/state_label.gd" id="5_ttfk5"]
 [ext_resource type="Script" path="res://Scenes/Actors/Enemies/Skeleton/States/wander.gd" id="6_yy50v"]
+[ext_resource type="Script" path="res://Scenes/Actors/Enemies/Skeleton/States/wait.gd" id="7_2xwf6"]
 [ext_resource type="Script" path="res://Scenes/Actors/Enemies/Skeleton/States/attack.gd" id="8_nb2ht"]
+[ext_resource type="Script" path="res://Scenes/Actors/Enemies/Skeleton/States/go_to.gd" id="8_nu4ip"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w0848"]
 atlas = ExtResource("2_aibn1")
@@ -337,6 +339,15 @@ script = ExtResource("3_e24xs")
 
 [node name="Wander" type="Node2D" parent="BehaviourTree" index="0"]
 script = ExtResource("6_yy50v")
+
+[node name="Wait" type="Node2D" parent="BehaviourTree/Wander" index="0"]
+script = ExtResource("7_2xwf6")
+
+[node name="Timer" type="Timer" parent="BehaviourTree/Wander/Wait" index="0"]
+one_shot = true
+
+[node name="GoTo" type="Node2D" parent="BehaviourTree/Wander" index="1"]
+script = ExtResource("8_nu4ip")
 
 [node name="Chase" type="Node2D" parent="BehaviourTree" index="1"]
 script = ExtResource("5_rg132")

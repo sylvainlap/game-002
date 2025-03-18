@@ -11,8 +11,8 @@ var damping: float = 20.0
 
 
 func enter_state() -> void:
-	var rdm_angle = randf_range(0.0, 360.0)
-	spawn_dir = Vector2(sin(rdm_angle), cos(rdm_angle))
+	var rdm_angle = deg_to_rad(randf_range(0.0, 360.0))
+	spawn_dir = Vector2(cos(rdm_angle), sin(rdm_angle))
 
 
 func update(delta: float) -> void:

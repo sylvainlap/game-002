@@ -7,6 +7,7 @@ class_name Enemy
 
 signal target_in_chase_area_changed
 signal target_in_attack_area_changed
+signal move_path_finished
 
 var target: Node2D = null
 var target_in_chase_area: bool = false : set = set_target_in_chase_area
@@ -46,6 +47,9 @@ func move_along_path(delta: float) -> void:
 	if dist <= SPEED * delta:
 		move_and_collide(dir * dist)
 		path.remove_at(0)
+		
+		if path.is_empty():
+			move_path_finished.emit()
 	else:
 		move_and_collide(dir * SPEED * delta)
 
