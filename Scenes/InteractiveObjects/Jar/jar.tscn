@@ -62,7 +62,7 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_03fw6"]
 
-[node name="Jar" type="StaticBody2D"]
+[node name="Jar" type="StaticBody2D" groups=["Obstacle"]]
 script = ExtResource("1_0rhaw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

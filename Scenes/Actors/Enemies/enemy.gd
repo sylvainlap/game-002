@@ -14,6 +14,9 @@ var target_in_chase_area: bool = false : set = set_target_in_chase_area
 var target_in_attack_area: bool = false : set = set_target_in_attack_area
 var path: Array = []
 
+var pathfinder: Pathfinder = null
+
+
 func set_target_in_chase_area(value: bool) -> void:
 	if value != target_in_chase_area:
 		target_in_chase_area = value
@@ -32,7 +35,10 @@ func _update_target() -> void:
 
 
 func update_move_path(dest: Vector2) -> void:
-	path = [dest]
+	if pathfinder == null:
+		path = [dest]
+	else:
+		path = pathfinder.find_path(global_position, dest)
 
 
 func move_along_path(delta: float) -> void:

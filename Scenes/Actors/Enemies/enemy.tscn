@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://d3ncuh1jq0sqw" path="res://Scenes/Actors/actor.tscn" id="1_u14ly"]
 [ext_resource type="Script" path="res://Scenes/Actors/Enemies/enemy.gd" id="2_35cmx"]
 
-[node name="Enemy" instance=ExtResource("1_u14ly")]
+[node name="Enemy" groups=["Enemy"] instance=ExtResource("1_u14ly")]
 script = ExtResource("2_35cmx")
 
 [node name="ChaseArea" type="Area2D" parent="." index="4"]
