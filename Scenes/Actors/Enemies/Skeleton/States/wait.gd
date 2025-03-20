@@ -6,7 +6,11 @@ class_name SkeleteonWaitState
 
 signal wait_time_finished
 
+
 func enter_state() -> void:
+	if !is_instance_valid(owner):
+		return
+		
 	if owner.state_machine != null:
 		owner.state_machine.set_state("Idle")
 

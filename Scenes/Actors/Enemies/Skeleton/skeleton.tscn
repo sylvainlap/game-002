@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://c6wmus4cqvgq6"]
+[gd_scene load_steps=60 format=3 uid="uid://c6wmus4cqvgq6"]
 
 [ext_resource type="PackedScene" uid="uid://bya3mc8wmmafc" path="res://Scenes/Actors/Enemies/enemy.tscn" id="1_ml3yf"]
 [ext_resource type="Texture2D" uid="uid://ciq1g308rup6j" path="res://Scenes/Actors/Enemies/Skeleton/Sprites/Squelette_SpriteSheet.png" id="2_aibn1"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Scenes/Actors/Enemies/Skeleton/States/wait.gd" id="7_2xwf6"]
 [ext_resource type="Script" path="res://Scenes/Actors/Enemies/Skeleton/States/attack.gd" id="8_nb2ht"]
 [ext_resource type="Script" path="res://Scenes/Actors/Enemies/Skeleton/States/go_to.gd" id="8_nu4ip"]
+[ext_resource type="Script" path="res://StateMachine/state.gd" id="13_ihpti"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vvemf"]
 resource_local_to_scene = true
@@ -396,7 +397,7 @@ radius = 27.074
 
 [node name="Skeleton" instance=ExtResource("1_ml3yf")]
 material = null
-SPEED = 170.0
+speed = 170.0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 material = SubResource("ShaderMaterial_vvemf")
@@ -444,7 +445,10 @@ script = ExtResource("8_nb2ht")
 [node name="Cooldown" type="Timer" parent="BehaviourTree/Attack" index="0"]
 one_shot = true
 
-[node name="StateLabel" type="Label" parent="BehaviourTree" index="3"]
+[node name="Inactive" type="Node2D" parent="BehaviourTree" index="3"]
+script = ExtResource("13_ihpti")
+
+[node name="StateLabel" type="Label" parent="BehaviourTree" index="4"]
 offset_left = -30.0
 offset_top = -75.0
 offset_right = 30.0

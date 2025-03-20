@@ -54,23 +54,23 @@ func move_along_path(delta: float) -> void:
 	
 	set_moving_direction(dir)
 	
-	if dist <= SPEED * delta:
+	if dist <= speed * delta:
 		move_and_collide(dir * dist)
 		path.remove_at(0)
 		
 		if path.is_empty():
 			move_path_finished.emit()
 	else:
-		move_and_collide(dir * SPEED * delta)
-
-
-func can_attack() -> bool:
-	return !get_node("BehaviourTree/Attack").is_cooldown_running() && target_in_attack_area
+		move_and_collide(dir * speed * delta)
 
 
 func _update_behaviour_state() -> void:
-	if can_attack():
-		behaviour_tree.set_state("Attack")
+	if target_in_attack_area:
+		if get_node("BehaviourTree/Attack").is_cooldown_running():
+			behaviour_tree.set_state("Inactive")
+			path = []
+		else:
+			behaviour_tree.set_state("Attack")
 	elif target_in_chase_area:
 		behaviour_tree.set_state("Chase")
 	else:
@@ -84,6 +84,7 @@ func _ready() -> void:
 	attack_area.body_exited.connect(_on_attack_area_body_exited)
 	target_in_chase_area_changed.connect(_on_target_in_chase_area_changed)
 	target_in_attack_area_changed.connect(_on_target_in_attack_area_changed)
+	$BehaviourTree/Attack/Cooldown.timeout.connect(_on_attack_cooldown_finished)
 	
 	path_line.set_as_top_level(true)
 	
@@ -128,8 +129,15 @@ func _on_moving_direction_changed() -> void:
 	face_direction(get_moving_direction())
 
 
-func _on_state_changed(state) -> void:
-	if state.name == "Idle" && state_machine.get_previous_state_name() == "Attack":
+func _on_state_changed(state: State) -> void:
+	if state_machine.get_previous_state_name() == "Attack" or state_machine.get_previous_state_name() == "Hurt":
 		_update_behaviour_state()
+	
+	if state.name == "Attack":
+		face_position(target.global_position)
 
 	super._on_state_changed(state)
+
+
+func _on_attack_cooldown_finished() -> void:
+	_update_behaviour_state()

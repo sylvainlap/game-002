@@ -7,11 +7,15 @@ class_name Actor
 
 signal moving_direction_changed
 signal facing_direction_changed
+signal hp_changed
 
-@export var SPEED := 300.0
+@export var speed := 300.0
+@export var max_hp: int = 3
 
 var moving_direction := Vector2.ZERO: set = set_moving_direction, get = get_moving_direction
 var facing_direction := Vector2.DOWN: set = set_facing_direction, get = get_facing_direction
+
+@onready var hp: int = max_hp: set = set_hp, get = get_hp
 
 var direction_dict := {
 	"left": Vector2.LEFT,
@@ -25,6 +29,18 @@ func set_moving_direction(new_moving_direction: Vector2) -> void:
 	if new_moving_direction != moving_direction:
 		moving_direction = new_moving_direction
 		moving_direction_changed.emit()
+
+
+func set_hp(new_value: int) -> void:
+	new_value = clampi(new_value, 0, max_hp)
+	
+	if new_value != hp:
+		hp = new_value
+		hp_changed.emit()
+
+
+func get_hp() -> int:
+	return hp
 
 
 func get_moving_direction() -> Vector2:
@@ -47,6 +63,7 @@ func _ready() -> void:
 	facing_direction_changed.connect(_on_facing_direction_changed)
 	animated_sprite.animation_finished.connect(_on_animated_sprite_2d_animation_finished)
 	animated_sprite.frame_changed.connect(_on_animated_sprite_2d_frame_changed)
+	hp_changed.connect(_on_hp_changed)
 
 
 func find_direction_name(dir: Vector2) -> String:
@@ -80,13 +97,19 @@ func _attack_effect() -> void:
 	for body in bodies_array:
 		if body.has_method("hurt"):
 			body.face_position(global_position)
-			body.hurt()
+			var damage = _compute_damage(body)
+			body.hurt(damage)
 		elif body.has_method("destroy"):
 			body.destroy()
 
 
-func hurt() -> void:
+func _compute_damage(target: Actor) -> int:
+	return 1
+
+
+func hurt(damage: int) -> void:
 	state_machine.set_state("Hurt")
+	set_hp(hp - damage)
 	_hurt_feedback()
 
 
@@ -94,6 +117,11 @@ func _hurt_feedback() -> void:
 	var hurt_tween = get_tree().create_tween()
 	hurt_tween.tween_property(animated_sprite.material, "shader_parameter/opacity", 1.0, 0.1);
 	hurt_tween.tween_property(animated_sprite.material, "shader_parameter/opacity", 0.0, 0.1);
+
+
+func die() -> void:
+	EVENTS.actor_died.emit(self)
+	queue_free()
 
 
 func face_position(pos: Vector2) -> void:
@@ -108,7 +136,7 @@ func face_direction(dir: Vector2) -> void:
 		set_facing_direction(Vector2(0, sign(dir.y)))
 
 
-func _on_state_changed(new_state: Node2D) -> void:
+func _on_state_changed(new_state: State) -> void:
 	_update_animation()
 
 
@@ -146,3 +174,10 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 	if "attack".is_subsequence_of(animated_sprite.get_animation()):
 		if animated_sprite.get_frame() == 1:
 			_attack_effect()
+
+
+func _on_hp_changed() -> void:
+	print(name + " - HP: " + str(hp))
+	
+	if hp == 0:
+		die()

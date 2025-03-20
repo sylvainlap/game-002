@@ -39,3 +39,9 @@ func _on_state_changed(new_state: Node2D) -> void:
 			state_machine.set_state("Idle")
 
 	super(new_state)
+
+
+func _on_hp_changed() -> void:
+	EVENTS.character_hp_changed.emit(hp)
+	
+	super()
