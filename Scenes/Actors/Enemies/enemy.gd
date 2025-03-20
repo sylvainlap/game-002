@@ -4,6 +4,7 @@ class_name Enemy
 @onready var behaviour_tree = get_node("BehaviourTree")
 @onready var chase_area = get_node("ChaseArea")
 @onready var attack_area = get_node("AttackArea")
+@onready var path_line = get_node("PathLine")
 
 signal target_in_chase_area_changed
 signal target_in_attack_area_changed
@@ -39,6 +40,9 @@ func update_move_path(dest: Vector2) -> void:
 		path = [dest]
 	else:
 		path = pathfinder.find_path(global_position, dest)
+	
+	if path_line.is_visible():
+		path_line.set_points(path)
 
 
 func move_along_path(delta: float) -> void:
@@ -81,6 +85,8 @@ func _ready() -> void:
 	target_in_chase_area_changed.connect(_on_target_in_chase_area_changed)
 	target_in_attack_area_changed.connect(_on_target_in_attack_area_changed)
 	
+	path_line.set_as_top_level(true)
+	
 	super._ready()
 
 
@@ -119,10 +125,7 @@ func _on_target_in_attack_area_changed(value: bool) -> void:
 
 
 func _on_moving_direction_changed() -> void:
-	if abs(get_moving_direction().x) > abs(get_moving_direction().y):
-		set_facing_direction(Vector2(sign(moving_direction.x), 0))
-	else:
-		set_facing_direction(Vector2(0, sign(moving_direction.y)))
+	face_direction(get_moving_direction())
 
 
 func _on_state_changed(state) -> void:

@@ -76,10 +76,36 @@ func _update_attack_hit_box_direction() -> void:
 
 func _attack_effect() -> void:
 	var bodies_array = attack_hit_box.get_overlapping_bodies()
-	
+
 	for body in bodies_array:
-		if body.has_method("destroy"):
+		if body.has_method("hurt"):
+			body.face_position(global_position)
+			body.hurt()
+		elif body.has_method("destroy"):
 			body.destroy()
+
+
+func hurt() -> void:
+	state_machine.set_state("Hurt")
+	_hurt_feedback()
+
+
+func _hurt_feedback() -> void:
+	var hurt_tween = get_tree().create_tween()
+	hurt_tween.tween_property(animated_sprite.material, "shader_parameter/opacity", 1.0, 0.1);
+	hurt_tween.tween_property(animated_sprite.material, "shader_parameter/opacity", 0.0, 0.1);
+
+
+func face_position(pos: Vector2) -> void:
+	var dir = global_position.direction_to(pos)
+	face_direction(dir)
+
+
+func face_direction(dir: Vector2) -> void:
+	if abs(dir.x) > abs(dir.y):
+		set_facing_direction(Vector2(sign(dir.x), 0))
+	else:
+		set_facing_direction(Vector2(0, sign(dir.y)))
 
 
 func _on_state_changed(new_state: Node2D) -> void:
@@ -111,6 +137,8 @@ func _on_moving_direction_changed() -> void:
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if "attack".is_subsequence_of(animated_sprite.get_animation()):
+		state_machine.set_state("Idle")
+	elif "hurt".is_subsequence_of(animated_sprite.get_animation()):
 		state_machine.set_state("Idle")
 
 

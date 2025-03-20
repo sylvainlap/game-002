@@ -1,18 +1,26 @@
-[gd_scene load_steps=9 format=3 uid="uid://o86pw35ntehg"]
+[gd_scene load_steps=11 format=3 uid="uid://o86pw35ntehg"]
 
 [ext_resource type="PackedScene" uid="uid://d3ncuh1jq0sqw" path="res://Scenes/Actors/actor.tscn" id="1_ixfix"]
 [ext_resource type="Script" path="res://Scenes/Actors/Character/character.gd" id="1_wtjlj"]
 [ext_resource type="SpriteFrames" uid="uid://bgxuab8h77fyl" path="res://Scenes/Actors/Character/character_sprite_frame.tres" id="2_siyj3"]
 [ext_resource type="Shape2D" uid="uid://byq2fmlc165jm" path="res://Scenes/Actors/Character/character_hit_box.tres" id="3_71yk0"]
+[ext_resource type="Shader" path="res://Scenes/Actors/actor.gdshader" id="3_nlwos"]
 [ext_resource type="Shape2D" uid="uid://nfnfl8elw6st" path="res://Scenes/Actors/Character/character_attack_hit_box.tres" id="4_erdnv"]
 [ext_resource type="Script" path="res://Scenes/Actors/Character/States/move.gd" id="6_4gx33"]
 [ext_resource type="Script" path="res://Scenes/Actors/Character/States/idle.gd" id="6_p5kfc"]
 [ext_resource type="Script" path="res://Scenes/Actors/Character/States/attack.gd" id="8_7bog1"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iefgq"]
+resource_local_to_scene = true
+shader = ExtResource("3_nlwos")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/opacity = 0.0
+
 [node name="Character" instance=ExtResource("1_ixfix")]
 script = ExtResource("1_wtjlj")
 
 [node name="AnimatedSprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_iefgq")
 sprite_frames = ExtResource("2_siyj3")
 animation = &"idle_down"
 
