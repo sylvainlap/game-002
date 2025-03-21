@@ -108,9 +108,16 @@ func _compute_damage(target: Actor) -> int:
 
 
 func hurt(damage: int) -> void:
-	state_machine.set_state("Hurt")
-	set_hp(hp - damage)
-	_hurt_feedback()
+	if state_machine.get_state_name() == "Block":
+		parry()
+	else:
+		set_hp(hp - damage)
+		state_machine.set_state("Hurt")
+		_hurt_feedback()
+
+
+func parry() -> void:
+	state_machine.set_state("Parry")
 
 
 func _hurt_feedback() -> void:
@@ -121,7 +128,8 @@ func _hurt_feedback() -> void:
 
 func die() -> void:
 	EVENTS.actor_died.emit(self)
-	queue_free()
+	state_machine.set_state("Dead")
+	$CollisionShape2D.set_disabled(true)
 
 
 func face_position(pos: Vector2) -> void:
@@ -166,8 +174,13 @@ func _on_moving_direction_changed() -> void:
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if "attack".is_subsequence_of(animated_sprite.get_animation()):
 		state_machine.set_state("Idle")
+	elif "parry".is_subsequence_of(animated_sprite.get_animation()):
+		state_machine.set_state("Block")
 	elif "hurt".is_subsequence_of(animated_sprite.get_animation()):
-		state_machine.set_state("Idle")
+		if hp == 0:
+			die()
+		else:
+			state_machine.set_state("Idle")
 
 
 func _on_animated_sprite_2d_frame_changed() -> void:
@@ -177,7 +190,4 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 
 
 func _on_hp_changed() -> void:
-	print(name + " - HP: " + str(hp))
-	
-	if hp == 0:
-		die()
+	pass

@@ -43,5 +43,5 @@ script = ExtResource("6_p5kfc")
 [node name="Move" parent="StateMachine" index="1"]
 script = ExtResource("6_4gx33")
 
-[node name="Attack" parent="StateMachine" index="2"]
+[node name="Attack" parent="StateMachine" index="4"]
 script = ExtResource("8_7bog1")

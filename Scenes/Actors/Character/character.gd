@@ -12,9 +12,15 @@ func _input(_event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed("ui_accept"):
 		state_machine.set_state("Attack")
+		
+	_update_state()
 
-	if state_machine.get_state_name() != "Attack":
-		if get_moving_direction() == Vector2.ZERO:
+
+func _update_state() -> void:
+	if state_machine.get_state_name() not in ["Attack", "Parry"]:
+		if Input.is_action_pressed("block"):
+			state_machine.set_state("Block")
+		elif get_moving_direction() == Vector2.ZERO:
 			state_machine.set_state("Idle")
 		else:
 			state_machine.set_state("Move")

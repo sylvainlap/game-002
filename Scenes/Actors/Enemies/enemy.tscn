@@ -1,10 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://bya3mc8wmmafc"]
+[gd_scene load_steps=5 format=3 uid="uid://bya3mc8wmmafc"]
 
 [ext_resource type="PackedScene" uid="uid://d3ncuh1jq0sqw" path="res://Scenes/Actors/actor.tscn" id="1_u14ly"]
 [ext_resource type="Script" path="res://Scenes/Actors/Enemies/enemy.gd" id="2_35cmx"]
+[ext_resource type="Shader" path="res://Scenes/Actors/actor.gdshader" id="3_gpmjj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtdoj"]
+resource_local_to_scene = true
+shader = ExtResource("3_gpmjj")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/opacity = 0.0
 
 [node name="Enemy" groups=["Enemy"] instance=ExtResource("1_u14ly")]
 script = ExtResource("2_35cmx")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_vtdoj")
 
 [node name="ChaseArea" type="Area2D" parent="." index="4"]
 

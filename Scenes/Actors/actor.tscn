@@ -47,8 +47,17 @@ script = ExtResource("3_3kdbl")
 [node name="Move" type="Node2D" parent="StateMachine"]
 script = ExtResource("3_3kdbl")
 
+[node name="Block" type="Node2D" parent="StateMachine"]
+script = ExtResource("3_3kdbl")
+
+[node name="Parry" type="Node2D" parent="StateMachine"]
+script = ExtResource("3_3kdbl")
+
 [node name="Attack" type="Node2D" parent="StateMachine"]
 script = ExtResource("3_3kdbl")
 
 [node name="Hurt" type="Node2D" parent="StateMachine"]
+script = ExtResource("3_3kdbl")
+
+[node name="Dead" type="Node2D" parent="StateMachine"]
 script = ExtResource("3_3kdbl")
