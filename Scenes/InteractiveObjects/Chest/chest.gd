@@ -12,8 +12,7 @@ func interact() -> void:
 
 
 func _spawn_content() -> void:
-	for n in range(8):
-		EVENTS.spawn_coin.emit(position)
+	EVENTS.spawn_coin.emit(position)
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:
