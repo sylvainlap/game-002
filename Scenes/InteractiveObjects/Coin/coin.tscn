@@ -221,7 +221,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ip1ev"]
-radius = 98.0051
+radius = 64.0
 
 [sub_resource type="Animation" id="Animation_ck6bm"]
 resource_name = "Collect"

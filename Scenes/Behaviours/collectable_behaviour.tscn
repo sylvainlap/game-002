@@ -28,7 +28,7 @@ script = ExtResource("1_v1eed")
 script = ExtResource("2_vle15")
 
 [node name="SpawnTimer" type="Timer" parent="StateMachine/Spawn"]
-wait_time = 0.5
+wait_time = 0.4
 one_shot = true
 autostart = true
 

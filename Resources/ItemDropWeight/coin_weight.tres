@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemDropWeight" load_steps=3 format=3 uid="uid://1a25vca8lypa"]
+
+[ext_resource type="Script" path="res://Scenes/InteractiveObjects/Item/ItemDropWeight/item_drop_weigth.gd" id="1_5amx1"]
+[ext_resource type="PackedScene" uid="uid://ca4tlylv3ytgd" path="res://Scenes/InteractiveObjects/Coin/coin.tscn" id="1_edl70"]
+
+[resource]
+script = ExtResource("1_5amx1")
+item_data = ExtResource("1_edl70")
+weight = 30.0

@@ -1,9 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://dbt61jtuuortk"]
+[gd_scene load_steps=18 format=3 uid="uid://dbt61jtuuortk"]
 
 [ext_resource type="Script" path="res://Scenes/InteractiveObjects/Jar/jar.gd" id="1_0rhaw"]
 [ext_resource type="Texture2D" uid="uid://db7o6qqh6rv6e" path="res://Scenes/InteractiveObjects/Jar/Sprites/Jar_SpriteSheet.png" id="1_kylwp"]
 [ext_resource type="Script" path="res://StateMachine/state_machine.gd" id="3_kp052"]
 [ext_resource type="Script" path="res://StateMachine/state.gd" id="4_i732o"]
+[ext_resource type="PackedScene" uid="uid://br22l0srgrcw2" path="res://Scenes/Behaviours/dropper_behaviour.tscn" id="5_wt62a"]
+[ext_resource type="Resource" uid="uid://dc1q7hlpcpr5u" path="res://Resources/ItemDropWeight/hp_potion_weight.tres" id="6_2kgu6"]
+[ext_resource type="Resource" uid="uid://bgpaswer6luoe" path="res://Resources/ItemDropWeight/void_weight.tres" id="7_npmce"]
+[ext_resource type="Resource" uid="uid://y448whycd0vf" path="res://Resources/ItemDropWeight/mp_potion_weight.tres" id="7_vx42b"]
+[ext_resource type="Resource" uid="uid://1a25vca8lypa" path="res://Resources/ItemDropWeight/coin_weight.tres" id="8_elmiy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60pfj"]
 atlas = ExtResource("1_kylwp")
@@ -85,5 +90,8 @@ script = ExtResource("4_i732o")
 
 [node name="Broken" type="Node2D" parent="StateMachine"]
 script = ExtResource("4_i732o")
+
+[node name="DropperBehaviour" parent="." instance=ExtResource("5_wt62a")]
+item_drop_weight_array = [ExtResource("6_2kgu6"), ExtResource("7_vx42b"), ExtResource("8_elmiy"), ExtResource("7_npmce")]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

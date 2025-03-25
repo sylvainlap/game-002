@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Scenes/InteractiveObjects/Item/item.gd" id="1_o5c3m"]
 [ext_resource type="PackedScene" uid="uid://c8rxmguwiayly" path="res://Scenes/Behaviours/collectable_behaviour.tscn" id="1_ogpik"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ohqiw"]
-radius = 104.307
+[sub_resource type="CircleShape2D" id="CircleShape2D_bq1iy"]
+radius = 64.0
 
 [node name="Item" type="Node2D"]
 script = ExtResource("1_o5c3m")
@@ -14,6 +14,6 @@ script = ExtResource("1_o5c3m")
 [node name="CollectableBehaviour" parent="." instance=ExtResource("1_ogpik")]
 
 [node name="CollisionShape2D" parent="CollectableBehaviour/FollowArea" index="0"]
-shape = SubResource("CircleShape2D_ohqiw")
+shape = SubResource("CircleShape2D_bq1iy")
 
 [editable path="CollectableBehaviour"]

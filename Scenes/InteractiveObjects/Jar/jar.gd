@@ -1,13 +1,16 @@
 extends StaticBody2D
+class_name Jar
 
 @onready var animated_sprite = get_node("AnimatedSprite2D")
 @onready var collision_shape = get_node("CollisionShape2D")
 @onready var state_machine = get_node("StateMachine")
 
+
 func destroy() -> void:
 	if state_machine.get_state_name() == "Idle":
 		state_machine.set_state("Breaking")
 		animated_sprite.play("break")
+		$DropperBehaviour.drop_item()
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:

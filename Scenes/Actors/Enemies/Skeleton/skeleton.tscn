@@ -580,6 +580,7 @@ script = ExtResource("5_rg132")
 script = ExtResource("8_nb2ht")
 
 [node name="Cooldown" type="Timer" parent="BehaviourTree/Attack" index="0"]
+wait_time = 2.0
 one_shot = true
 
 [node name="Inactive" type="Node2D" parent="BehaviourTree" index="3"]
