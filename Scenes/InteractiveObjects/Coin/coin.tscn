@@ -220,8 +220,8 @@ _data = {
 "wave": SubResource("Animation_mg162")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7f7px"]
-radius = 57.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_ip1ev"]
+radius = 98.0051
 
 [sub_resource type="Animation" id="Animation_ck6bm"]
 resource_name = "Collect"
@@ -331,15 +331,10 @@ libraries = {
 "": SubResource("AnimationLibrary_ex177")
 }
 
-[node name="SpawnDurationTimer" type="Timer" parent="."]
-wait_time = 0.4
-one_shot = true
-autostart = true
-
 [node name="CollectableBehaviour" parent="." instance=ExtResource("4_b5alc")]
 
 [node name="CollisionShape2D" parent="CollectableBehaviour/FollowArea" index="0"]
-shape = SubResource("CircleShape2D_7f7px")
+shape = SubResource("CircleShape2D_ip1ev")
 
 [node name="AnimationPlayer" parent="CollectableBehaviour" index="4"]
 libraries = {
@@ -348,6 +343,5 @@ libraries = {
 
 [connection signal="animation_finished" from="CoinSprite" to="." method="_on_coin_sprite_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="SpawnDurationTimer" to="." method="_on_spawn_duration_timer_timeout"]
 
 [editable path="CollectableBehaviour"]

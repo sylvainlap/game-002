@@ -23,3 +23,7 @@ func update(delta: float) -> void:
 	var velocity = spawn_v_velocity + spawn_dir_velocity
 	
 	owner.object.position += velocity * delta
+
+
+func _on_spawn_timer_timeout() -> void:
+	state_machine.set_state("Idle")

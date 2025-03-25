@@ -21,7 +21,3 @@ func _on_coin_sprite_animation_finished() -> void:
 	if coin_sprite.get_animation() == "rotation":
 		coin_sprite.play("idle")
 		shadow_sprite.play("idle")
-
-
-func _on_spawn_duration_timer_timeout() -> void:
-	collectable_behaviour.state_machine.set_state("Idle")

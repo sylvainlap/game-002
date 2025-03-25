@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cx3hruwfbpr2w"]
+
+[ext_resource type="Script" path="res://Scenes/InteractiveObjects/Item/item.gd" id="1_o5c3m"]
+[ext_resource type="PackedScene" uid="uid://c8rxmguwiayly" path="res://Scenes/Behaviours/collectable_behaviour.tscn" id="1_ogpik"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ohqiw"]
+radius = 104.307
+
+[node name="Item" type="Node2D"]
+script = ExtResource("1_o5c3m")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+
+[node name="CollectableBehaviour" parent="." instance=ExtResource("1_ogpik")]
+
+[node name="CollisionShape2D" parent="CollectableBehaviour/FollowArea" index="0"]
+shape = SubResource("CircleShape2D_ohqiw")
+
+[editable path="CollectableBehaviour"]

@@ -27,6 +27,11 @@ script = ExtResource("1_v1eed")
 [node name="Spawn" type="Node2D" parent="StateMachine"]
 script = ExtResource("2_vle15")
 
+[node name="SpawnTimer" type="Timer" parent="StateMachine/Spawn"]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
 [node name="Idle" type="Node2D" parent="StateMachine"]
 script = ExtResource("3_p8c56")
 
@@ -40,4 +45,5 @@ script = ExtResource("3_p8c56")
 
 [connection signal="body_entered" from="FollowArea" to="." method="_on_follow_area_body_entered"]
 [connection signal="state_changed" from="StateMachine" to="." method="_on_state_machine_state_changed"]
+[connection signal="timeout" from="StateMachine/Spawn/SpawnTimer" to="StateMachine/Spawn" method="_on_spawn_timer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
