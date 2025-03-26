@@ -34,5 +34,5 @@ func _find_item_by_weight_value(value: float) -> Object:
 		if value <= current_total_weight:
 			return item_weight.item_data
 
-	push_error("The given value %d must be between 0.0 and total weight.", value)
+	push_error("The given value %d must be between 0.0 and total weight." % value)
 	return null

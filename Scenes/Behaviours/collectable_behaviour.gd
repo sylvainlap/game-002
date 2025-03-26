@@ -6,13 +6,10 @@ class_name CollectableBehaviour
 @onready var follow_area = get_node("FollowArea")
 @onready var animation_player = get_node("AnimationPlayer")
 
-signal collected
-
 
 func collect() -> void:
 	EVENTS.object_collected.emit(object)
 	state_machine.set_state("Collect")
-	collected.emit()
 	if animation_player.has_animation("Collect"):
 		animation_player.play("Collect")
 	else:
