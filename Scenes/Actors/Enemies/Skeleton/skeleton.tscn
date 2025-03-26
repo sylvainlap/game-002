@@ -552,6 +552,7 @@ shape = SubResource("RectangleShape2D_qxsj0")
 script = ExtResource("3_nu6cx")
 
 [node name="StateLabel" type="Label" parent="StateMachine" index="3"]
+visible = false
 offset_left = -29.0
 offset_top = -52.0
 offset_right = 30.0
@@ -587,6 +588,7 @@ one_shot = true
 script = ExtResource("13_ihpti")
 
 [node name="StateLabel" type="Label" parent="BehaviourTree" index="4"]
+visible = false
 offset_left = -30.0
 offset_top = -75.0
 offset_right = 30.0
@@ -595,17 +597,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 script = ExtResource("5_ttfk5")
 
-[node name="ChaseArea" parent="." index="5"]
-visible = false
-
 [node name="CollisionShape2D" parent="ChaseArea" index="0"]
 shape = SubResource("CircleShape2D_4uts0")
-
-[node name="AttackArea" parent="." index="6"]
-visible = false
 
 [node name="CollisionShape2D" parent="AttackArea" index="0"]
 shape = SubResource("CircleShape2D_lrjjw")
 
 [node name="PathLine" parent="." index="7"]
-visible = true
+visible = false
