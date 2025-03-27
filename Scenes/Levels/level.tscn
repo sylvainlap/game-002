@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cvplv0i22rkq7"]
+[gd_scene load_steps=23 format=3 uid="uid://cvplv0i22rkq7"]
 
 [ext_resource type="PackedScene" uid="uid://o86pw35ntehg" path="res://Scenes/Actors/Character/character.tscn" id="1_f37is"]
 [ext_resource type="Script" path="res://Scenes/Levels/level.gd" id="1_j4rb1"]
@@ -9,10 +9,11 @@
 [ext_resource type="Texture2D" uid="uid://bl2umm1s3bhy4" path="res://Scenes/UI/HUD/HUD.png" id="6_vcrfk"]
 [ext_resource type="Script" path="res://Scenes/UI/HUD/hud.gd" id="7_26xv8"]
 [ext_resource type="Texture2D" uid="uid://dxlgt5g6fy0ox" path="res://Scenes/UI/HUD/Portrait.png" id="7_t138d"]
-[ext_resource type="FontFile" uid="uid://tt6wvkapv35l" path="res://Scenes/UI/Font/BabaMediumPixels.ttf" id="8_o85kg"]
+[ext_resource type="Theme" uid="uid://dd22668pn7frn" path="res://Themes/main_theme.tres" id="8_6rsak"]
 [ext_resource type="Texture2D" uid="uid://df6uaggm7od1t" path="res://Scenes/UI/HUD/HUD_Mask.png" id="8_opxke"]
 [ext_resource type="Script" path="res://Scenes/Levels/item_factory.gd" id="10_cxcgg"]
 [ext_resource type="PackedScene" uid="uid://c6wmus4cqvgq6" path="res://Scenes/Actors/Enemies/Skeleton/skeleton.tscn" id="11_2atqc"]
+[ext_resource type="Script" path="res://Scenes/UI/black_veil.gd" id="13_awaru"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/inventory.gd" id="13_bfcrs"]
 [ext_resource type="Script" path="res://Scenes/UI/Inventory/inventory_data_manager.gd" id="14_d0qw1"]
 [ext_resource type="PackedScene" uid="uid://dl0xd27c1ckhp" path="res://Scenes/InteractiveObjects/Door/door.tscn" id="14_n5fte"]
@@ -158,6 +159,7 @@ position = Vector2(937, 468)
 position = Vector2(283, 243)
 
 [node name="UI_Container" type="CanvasLayer" parent="."]
+process_mode = 3
 
 [node name="UI" type="Control" parent="UI_Container"]
 texture_filter = 1
@@ -168,12 +170,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-metadata/_edit_lock_ = true
+theme = ExtResource("8_6rsak")
 
 [node name="HUD" type="TextureRect" parent="UI_Container/UI"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+offset_right = 151.0
+offset_bottom = 65.0
 texture = ExtResource("6_vcrfk")
 script = ExtResource("7_26xv8")
 
@@ -223,8 +225,17 @@ offset_right = 92.0
 offset_bottom = 49.0
 theme_override_colors/font_outline_color = Color(0.286522, 0, 0.141875, 1)
 theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("8_o85kg")
 text = "0"
+
+[node name="BlackVeil" type="ColorRect" parent="UI_Container/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+script = ExtResource("13_awaru")
 
 [node name="Inventory" type="Control" parent="UI_Container/UI"]
 layout_mode = 1
@@ -250,15 +261,20 @@ grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI_Container/UI/Inventory/Panel"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -170.0
+offset_right = 80.0
+offset_bottom = 170.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="UI_Container/UI/Inventory/Panel/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("8_o85kg")
 text = "Inventory"
 horizontal_alignment = 1
 
@@ -274,5 +290,7 @@ metadata/_edit_group_ = true
 [node name="Door" parent="." instance=ExtResource("14_n5fte")]
 position = Vector2(544, 32)
 
+[connection signal="showed_changed" from="UI_Container/UI/Inventory" to="UI_Container/UI/Inventory/Panel/VBoxContainer/InventoryItemList" method="_on_inventory_showed_changed"]
+[connection signal="showed_changed" from="UI_Container/UI/Inventory" to="UI_Container/UI/BlackVeil" method="_on_inventory_showed_changed"]
 [connection signal="item_added" from="UI_Container/UI/Inventory/InventoryDataManager" to="UI_Container/UI/Inventory/Panel/VBoxContainer/InventoryItemList" method="_on_inventory_data_manager_item_added"]
 [connection signal="item_removed" from="UI_Container/UI/Inventory/InventoryDataManager" to="UI_Container/UI/Inventory/Panel/VBoxContainer/InventoryItemList" method="_on_inventory_data_manager_item_removed"]

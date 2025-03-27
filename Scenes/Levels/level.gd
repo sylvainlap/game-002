@@ -18,4 +18,3 @@ func _on_actor_died(actor: Actor) -> void:
 		
 		if ennemies_array == [actor]:
 			EVENTS.room_finished.emit()
-	

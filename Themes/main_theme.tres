@@ -1,0 +1,62 @@
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://dd22668pn7frn"]
+
+[ext_resource type="FontFile" uid="uid://bknn7578hh1ef" path="res://Themes/Font/BabaSmallPixel.ttf" id="1_4xnj0"]
+[ext_resource type="Texture2D" uid="uid://cfk7o5t17xiqf" path="res://Themes/Sprites/UI_Window.png" id="1_fsf8a"]
+[ext_resource type="Texture2D" uid="uid://bsk4x6wr6541m" path="res://Themes/Sprites/UI_Selection.png" id="1_xgke4"]
+[ext_resource type="FontFile" uid="uid://bd5jdrimglrw0" path="res://Themes/Font/BabaMediumPixels.ttf" id="2_xwgcc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1u0cs"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_if1yh"]
+texture = ExtResource("1_xgke4")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+modulate_color = Color(1, 1, 1, 0.627451)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5plbw"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q8yil"]
+texture = ExtResource("1_xgke4")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+modulate_color = Color(1, 1, 1, 0.627451)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c3yf7"]
+texture = ExtResource("1_xgke4")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+modulate_color = Color(1, 1, 1, 0.627451)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0bhph"]
+texture = ExtResource("1_fsf8a")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[resource]
+default_font = ExtResource("2_xwgcc")
+default_font_size = 16
+ItemList/colors/font_color = Color(1, 1, 1, 1)
+ItemList/font_sizes/font_size = 8
+ItemList/fonts/font = ExtResource("1_4xnj0")
+ItemList/styles/focus = SubResource("StyleBoxEmpty_1u0cs")
+ItemList/styles/hovered = SubResource("StyleBoxTexture_if1yh")
+ItemList/styles/panel = SubResource("StyleBoxEmpty_5plbw")
+ItemList/styles/selected = SubResource("StyleBoxTexture_q8yil")
+ItemList/styles/selected_focus = SubResource("StyleBoxTexture_c3yf7")
+Panel/styles/panel = SubResource("StyleBoxTexture_0bhph")
