@@ -290,7 +290,7 @@ metadata/_edit_group_ = true
 [node name="Door" parent="." instance=ExtResource("14_n5fte")]
 position = Vector2(544, 32)
 
-[connection signal="showed_changed" from="UI_Container/UI/Inventory" to="UI_Container/UI/Inventory/Panel/VBoxContainer/InventoryItemList" method="_on_inventory_showed_changed"]
 [connection signal="showed_changed" from="UI_Container/UI/Inventory" to="UI_Container/UI/BlackVeil" method="_on_inventory_showed_changed"]
+[connection signal="showed_changed" from="UI_Container/UI/Inventory" to="UI_Container/UI/Inventory/Panel/VBoxContainer/InventoryItemList" method="_on_inventory_showed_changed"]
 [connection signal="item_added" from="UI_Container/UI/Inventory/InventoryDataManager" to="UI_Container/UI/Inventory/Panel/VBoxContainer/InventoryItemList" method="_on_inventory_data_manager_item_added"]
 [connection signal="item_removed" from="UI_Container/UI/Inventory/InventoryDataManager" to="UI_Container/UI/Inventory/Panel/VBoxContainer/InventoryItemList" method="_on_inventory_data_manager_item_removed"]

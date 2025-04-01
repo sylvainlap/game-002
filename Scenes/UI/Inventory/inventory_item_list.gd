@@ -11,7 +11,6 @@ func _ready() -> void:
 
 
 func set_selected_item_id(value: int) -> void:
-	print(value)
 	selected_item_id = value
 	selected_item_id_changed.emit(selected_item_id)
 
